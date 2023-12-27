@@ -6,7 +6,7 @@ import { useUserStore } from '../../stores/userStore'
 import { useAvatarsStore } from '../../stores/avatarsStore'
 import { drawAvatar, drawRoom, isAvatarInRoom } from '../../utils/pixiUtils'
 import { createAvatar, getAvatars, updateAvatarPosition } from '../../utils/serverUtils'
-import MeetingRoom from '../MeetingRoom/MeetingRoom'
+import Room from '../Room/Room'
 import { useHMSActions } from '@100mslive/react-sdk'
 import avatarImageSuvi from '../../assets/avatars/avatarSuvi.gif'
 import avatarImageMA from '../../assets/avatars/avatarMA.gif'
@@ -139,22 +139,24 @@ const Metaverse = () => {
       delete avatarsRefs.current[avatarId]
     })
 
-    window.onunload = () => {
-      hmsActions.leave()
-    }
-
     return () => {
       app.view.removeEventListener('click', handleStageClick)
       app.ticker.remove(moveAvatar)
       app.destroy()
       socket.disconnect()
     }
-  }, [hmsActions])
+  }, [])
+
+  useEffect(() => {
+    if (!isInRoom) {
+      hmsActions.leave()
+    }
+  }, [isInRoom])
 
   return (
     <>
       <div ref={metaverseContainerRef} id="metaverse-container" />
-      {isInRoom && (<MeetingRoom />)}
+      {isInRoom && (<Room />)}
     </>
   )
 }

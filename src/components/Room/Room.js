@@ -1,4 +1,4 @@
-import './MeetingRoom.css'
+import './Room.css'
 import Conference from './Conference'
 import { useUserStore } from '../../stores/userStore'
 import { useEffect } from 'react'
@@ -8,7 +8,7 @@ import {
   useHMSStore
 } from '@100mslive/react-sdk'
 
-const MeetingRoom = () => {
+const Room = () => {
   const isConnected = useHMSStore(selectIsConnectedToRoom)
   const hmsActions = useHMSActions()
   const { user } = useUserStore()
@@ -18,7 +18,6 @@ const MeetingRoom = () => {
     const authToken = await hmsActions.getAuthTokenByRoomCode({ roomCode })
 
     try {
-      console.log(user.name)
       await hmsActions.join({ userName: user.name, authToken })
     } catch (e) {
       console.error(e)
@@ -35,9 +34,6 @@ const MeetingRoom = () => {
 
   useEffect(() => {
     joinInToRoom()
-    return () => {
-      hmsActions.leave()
-    }
   }, [])
 
   return (
@@ -49,4 +45,4 @@ const MeetingRoom = () => {
   )
 }
 
-export default MeetingRoom
+export default Room
