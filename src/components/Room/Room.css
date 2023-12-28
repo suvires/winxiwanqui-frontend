@@ -1,8 +1,8 @@
-.meeting-room {
+.conference-section {
     position: absolute;
     left: 60px;
     top: 0;
-    z-index: 2;
+    z-index: 1;
 }
 
 .peer-video {

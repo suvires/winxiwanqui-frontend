@@ -7,12 +7,13 @@ import { useAvatarsStore } from '../../stores/avatarsStore'
 import { drawAvatar, drawRoom, isAvatarInRoom } from '../../utils/pixiUtils'
 import { createAvatar, getAvatars, updateAvatarPosition } from '../../utils/serverUtils'
 import Room from '../Room/Room'
-import { useHMSActions } from '@100mslive/react-sdk'
+import { useHMSActions, useHMSStore, selectIsConnectedToRoom } from '@100mslive/react-sdk'
 import avatarImageSuvi from '../../assets/avatars/avatarSuvi.gif'
 import avatarImageMA from '../../assets/avatars/avatarMA.gif'
 import './Metaverse.css'
 
 const Metaverse = () => {
+  const isConnected = useHMSStore(selectIsConnectedToRoom)
   const hmsActions = useHMSActions()
   const { user } = useUserStore()
   const { addAvatar, removeAvatar } = useAvatarsStore()
@@ -148,10 +149,10 @@ const Metaverse = () => {
   }, [])
 
   useEffect(() => {
-    if (!isInRoom) {
+    if (!isInRoom && isConnected) {
       hmsActions.leave()
     }
-  }, [isInRoom])
+  }, [isInRoom, isConnected])
 
   return (
     <>

@@ -1,5 +1,6 @@
 import './Room.css'
 import Conference from './Conference'
+import Chat from '../Chat/Chat'
 import { useUserStore } from '../../stores/userStore'
 import { useEffect } from 'react'
 import {
@@ -37,11 +38,12 @@ const Room = () => {
   }, [])
 
   return (
-      <div className="meeting-room">
+      <>
           {isConnected && (
             <Conference />
           ) }
-      </div>
+          <Chat />
+      </>
   )
 }
 
