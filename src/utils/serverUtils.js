@@ -28,18 +28,6 @@ export const createAvatar = async (user, avatarImage, position) => {
   }
 }
 
-export const updateAvatarPosition = (userId, position) => {
-  fetch(`${process.env.REACT_APP_SERVER_URL}/avatars/${userId}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      position: { x: position.x, y: position.y }
-    })
-  })
-}
-
 export const getAvatars = async (app) => {
   try {
     const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/avatars`)

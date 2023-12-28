@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import * as PIXI from 'pixi.js'
 import io from 'socket.io-client'
-import _ from 'lodash'
 import { useUserStore } from '../../stores/userStore'
 import { useAvatarsStore } from '../../stores/avatarsStore'
 import { drawAvatar, drawRoom, isAvatarInRoom } from '../../utils/pixiUtils'
-import { createAvatar, getAvatars, updateAvatarPosition } from '../../utils/serverUtils'
+import { createAvatar, getAvatars } from '../../utils/serverUtils'
 import Room from '../Room/Room'
 import { useHMSActions, useHMSStore, selectIsConnectedToRoom } from '@100mslive/react-sdk'
 import avatarImageSuvi from '../../assets/avatars/avatarSuvi.gif'
@@ -38,8 +37,6 @@ const Metaverse = () => {
     targetY = event.clientY - rect.top
   }
 
-  const throttledUpdateAvatarPosition = _.throttle(updateAvatarPosition, 5)
-
   const moveAvatar = () => {
     if (!currentAvatarRef.current) return
 
@@ -66,7 +63,13 @@ const Metaverse = () => {
     currentAvatarRef.current.x += normalizedDx * speed
     currentAvatarRef.current.y += normalizedDy * speed
 
-    throttledUpdateAvatarPosition(user.id, currentAvatarRef.current.position)
+    socket.emit('moveAvatar', {
+      userId: user.id,
+      position: {
+        x: currentAvatarRef.current.position.x,
+        y: currentAvatarRef.current.position.y
+      }
+    })
   }
 
   useEffect(() => {
@@ -124,6 +127,7 @@ const Metaverse = () => {
     })
 
     socket.on('avatarMoved', (avatar) => {
+      console.log('avatarMoved', avatar)
       if (avatar.id !== user.id) {
         avatarsRefs.current[avatar.id].x = avatar.position.x
         avatarsRefs.current[avatar.id].y = avatar.position.y
