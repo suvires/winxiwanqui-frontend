@@ -127,7 +127,6 @@ const Metaverse = () => {
     })
 
     socket.on('avatarMoved', (avatar) => {
-      console.log('avatarMoved', avatar)
       if (avatar.id !== user.id) {
         avatarsRefs.current[avatar.id].x = avatar.position.x
         avatarsRefs.current[avatar.id].y = avatar.position.y
