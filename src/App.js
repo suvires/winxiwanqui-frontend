@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import logo from './assets/images/logo.svg'
 import './App.css'
-import Metaverse from './components/Metaverse/Metaverse'
+// import Metaverse from './components/Metaverse/Metaverse'
+import PhaserGame from './components/PhaserGame/PhaserGame'
 import { useUserStore } from './stores/userStore'
 import { generateUniqueId } from './utils/userUtils'
 
@@ -39,7 +40,7 @@ function App () {
       <aside id="app-sidebar">
         <img src={logo} className="app-logo" alt="logo" />
       </aside>
-      <Metaverse />
+      <PhaserGame />
     </div>
   )
 }

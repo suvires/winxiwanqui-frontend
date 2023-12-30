@@ -1,42 +1,12 @@
-import { drawAvatar } from './pixiUtils'
-
-export const createAvatar = async (user, avatarImage, position) => {
-  const newUser = {
-    name: user.name,
-    id: user.id,
-    position
-  }
-
+export const getPlayers = async () => {
   try {
-    const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/avatars`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        avatar: newUser
-      })
-    })
-
-    if (response.ok) {
-      return drawAvatar({ avatarImage, position })
-    } else {
-      console.error('Error creating avatar')
-    }
-  } catch (error) {
-    console.error('Fetching error on create avatar', error)
-  }
-}
-
-export const getAvatars = async (app) => {
-  try {
-    const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/avatars`)
+    const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/players`)
     if (response.ok) {
       return response.json()
     } else {
-      console.error('Error fetching avatars')
+      console.error('Error fetching players')
     }
   } catch (error) {
-    console.error('Error loading avatars:', error)
+    console.error('Error loading players:', error)
   }
 }
