@@ -1,10 +1,43 @@
-.conference-section {
+.conference-container {
+    z-index: 2;
     position: absolute;
-    left: 60px;
-    top: 0;
-    z-index: 1;
+    overflow: hidden;
+    left: calc(60px + 2rem);
+    top: 2rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    pointer-events: none;
 }
 
-.peer-video {
-    width: 300px;
+.peers-container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    pointer-events: none;
+}
+
+.peer {
+    width: 200px;
+    position: relative;
+    height: 112.5px;
+}
+
+.shared-screen {
+    width: 50%;
+}
+
+.peer video, .shared-screen video {
+    border: 2px solid rgb(26 29 33 / 30%)
+}
+
+.peer .peer-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: .8rem;
+    color: #FFF;
+    padding: 0.3rem;
+    border-radius: 0 .5rem;
+    background-color: rgb(26 29 33 / 70%);
 }

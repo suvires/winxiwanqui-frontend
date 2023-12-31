@@ -1,7 +1,7 @@
 import Phaser from 'phaser'
 import PlayerCharacter from './PlayerCharacter'
 import PathfindingManager from './PathfindingManager'
-import { TILE_SIZE, MAP_WIDTH, MAP_HEIGHT, CHARACTERS_SPRITES, PLAYER_ANIMATIONS, DIRECTIONS, IDLE_FRAMES } from '../../config/const'
+import { TILE_SIZE, MAP_WIDTH, MAP_HEIGHT, CHARACTERS_SPRITES, PLAYER_ANIMATIONS, DIRECTIONS, IDLE_FRAMES } from '../../config/constants'
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -156,7 +156,7 @@ export default class GameScene extends Phaser.Scene {
 
     this.physics.world.setBounds(0, 0, MAP_WIDTH * TILE_SIZE, MAP_HEIGHT * TILE_SIZE)
 
-    this.player = this.createPlayer(MAP_WIDTH / 2 * TILE_SIZE, MAP_HEIGHT / 2 * TILE_SIZE, this.user.characterSprite)
+    this.player = this.createPlayer(10 * TILE_SIZE, 10 * TILE_SIZE, this.user.characterSprite)
     this.socketManager.emit('createPlayer', { userId: this.user.id, characterSprite: this.player.texture.key, positionX: this.player.x, positionY: this.player.y })
 
     this.loadOtherPlayers(this.otherPlayers)

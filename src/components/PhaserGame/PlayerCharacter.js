@@ -1,7 +1,7 @@
 // TODO: que no puedas ponerte encima de otro jugador
 
 import Phaser from 'phaser'
-import { ANIMATIONS, DIRECTIONS } from '../../config/const'
+import { ANIMATIONS, DIRECTIONS } from '../../config/constants'
 
 export default class PlayerCharacter extends Phaser.Physics.Arcade.Sprite {
   constructor (scene, x, y, texture, frame) {
@@ -49,6 +49,9 @@ export default class PlayerCharacter extends Phaser.Physics.Arcade.Sprite {
         this.isAutoMoving = true
         this.autoMoveTo(newX, newY)
       },
+      onUpdate: () => {
+        this.updateRoomStatus()
+      },
       onComplete: () => {
         this.emitPosition()
       }
@@ -68,7 +71,6 @@ export default class PlayerCharacter extends Phaser.Physics.Arcade.Sprite {
     this.scene.tweens.chain({
       tweens,
       onComplete: () => {
-        this.updateRoomStatus()
         this.anims.stop()
         this.isAutoMoving = false
       }

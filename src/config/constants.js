@@ -13,8 +13,8 @@ export const ANIMATIONS = {
 }
 
 export const TILE_SIZE = 32
-export const MAP_WIDTH = 30
-export const MAP_HEIGHT = 20
+export const MAP_WIDTH = 100
+export const MAP_HEIGHT = 100
 
 export const CHARACTERS_SPRITES = ['fox', 'racoon', 'cat', 'bird']
 

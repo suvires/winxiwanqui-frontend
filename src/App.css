@@ -9,9 +9,8 @@
     left: 0;
     width: 60px;
     height: 100%;
-    padding: 1rem 0.5rem;
+    padding: .5rem 0.5rem 1rem;
     background-color: #1a1d21;
     box-shadow: 10px 0 20px 0 rgb(0 0 0 / 30%);
     z-index: 9999;
-    display: none;
 }

@@ -4,9 +4,11 @@ import GameScene from './GameScene'
 import { useUserStore } from '../../stores/userStore'
 import { getPlayers } from '../../utils/serverUtils'
 import SocketManager from '../../utils/socketManager'
-import { MAP_HEIGHT, MAP_WIDTH, TILE_SIZE } from '../../config/const'
+import { MAP_HEIGHT, MAP_WIDTH, TILE_SIZE } from '../../config/constants'
 import Room from '../Room/Room'
 import { useHMSActions, useHMSStore, selectIsConnectedToRoom } from '@100mslive/react-sdk'
+import './PhaserGame.css'
+import { ReactComponent as Spinner } from '../../assets/images/spinner.svg'
 
 const PhaserGame = () => {
   const { user } = useUserStore()
@@ -29,7 +31,11 @@ const PhaserGame = () => {
         debug: false
       }
     },
-    parent: 'game-container',
+    scale: {
+      mode: Phaser.Scale.RESIZE, // Escala el juego para ajustarse al contenedor
+      parent: 'game-container', // ID del contenedor padre
+      autoCenter: Phaser.Scale.CENTER_BOTH // Centra el juego en el contenedor
+    },
     scene: [GameScene]
   }
 
@@ -75,12 +81,15 @@ const PhaserGame = () => {
     if (!inRoom && isConnected) {
       hmsActions.leave()
     }
+    window.onunload = () => {
+      hmsActions.leave()
+    }
   }, [inRoom, isConnected])
 
   if (!loaded) {
     return (
-    <div>
-      <h1>Loading...</h1>
+    <div className="spinner">
+      <Spinner />
     </div>
     )
   }

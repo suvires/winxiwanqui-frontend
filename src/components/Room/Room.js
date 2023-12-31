@@ -1,5 +1,6 @@
 import './Room.css'
 import Conference from './Conference'
+import ControlBar from './ControlBar'
 import Chat from '../Chat/Chat'
 import { useUserStore } from '../../stores/userStore'
 import { useEffect } from 'react'
@@ -14,6 +15,7 @@ const Room = () => {
   const hmsActions = useHMSActions()
   const { user } = useUserStore()
   const roomCode = 'sgp-wlhi-zln'
+
   const joinInToRoom = async (e) => {
     // use room code to fetch auth token
     const authToken = await hmsActions.getAuthTokenByRoomCode({ roomCode })
@@ -26,21 +28,16 @@ const Room = () => {
   }
 
   useEffect(() => {
-    window.onunload = () => {
-      if (isConnected) {
-        hmsActions.leave()
-      }
-    }
-  }, [hmsActions, isConnected])
-
-  useEffect(() => {
     joinInToRoom()
   }, [])
 
   return (
       <>
           {isConnected && (
-            <Conference />
+            <>
+              <Conference />
+              <ControlBar />
+            </>
           ) }
           <Chat />
       </>
